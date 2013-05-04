@@ -10,6 +10,10 @@ class App < Sinatra::Base
 
   helpers ApplicationHelpers
 
+  use Rack::Auth::Basic, 'Restricted Area' do |username, password|
+    username == 'admin' and password == ENV['PASSWORD']
+  end
+
   get '/' do
     haml :work_board
   end
