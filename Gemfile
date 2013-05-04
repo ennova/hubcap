@@ -6,3 +6,7 @@ gem 'haml'
 gem 'httparty'
 gem 'dotenv'
 gem 'redis'
+
+group :development do
+  gem 'shotgun'
+end
