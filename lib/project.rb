@@ -124,6 +124,15 @@ class Project
   end
 
   def redis
-    @redis ||= Redis.new
+    @redis ||= if ENV['REDISCLOUD_URL']
+      uri = URI.parse(ENV['REDISCLOUD_URL'])
+      Redis.new(
+        :host => uri.host,
+        :port => uri.port,
+        :password => uri.password
+      )
+    else
+      Redis.new
+    end
   end
 end
