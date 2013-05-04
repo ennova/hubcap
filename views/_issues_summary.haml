@@ -10,7 +10,7 @@
 
       %a{:href => issue['html_url']}
         %span{:class => badge_style}= issue['number']
-      %a{:href => issue['html_url']}
+      %a.issue-link{:href => issue['html_url']}
         %span.title= issue['title']
       = related_issues_as_links(issue)
       = milestone_as_link(issue)
