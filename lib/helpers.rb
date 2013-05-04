@@ -27,6 +27,12 @@ module ApplicationHelpers
     end
   end
 
+  def accepted_label(issue)
+    if issue['labels'] && issue['labels'].find { |l| l['name'] == 'accepted' }
+       html_span('label label-success', 'accepted')
+    end
+  end
+
   def item_assignee(issue)
     if issue['assignee']
       html_span('label label-info', Project::NAMES[issue['assignee']['login']])

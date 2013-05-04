@@ -8,6 +8,7 @@
           %span.title= issue['title']
         = related_issues_as_links(issue)
         = blocked_label(issue)
+        = accepted_label(issue)
         = milestone_as_link(issue)
       %td
         = item_assignee(issue)
