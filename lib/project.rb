@@ -65,7 +65,11 @@ class Project
   end
 
   def last_closed_milestone
-    closed_milestones.first
+    closed_milestones[0]
+  end
+
+  def second_last_closed_milestone
+    closed_milestones[1]
   end
 
   def clear
