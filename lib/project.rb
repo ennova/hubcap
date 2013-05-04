@@ -108,10 +108,20 @@ class Project
     end
   end
 
+  def milestone_sort_key(milestone)
+    title = milestone['title']
+    if title =~ /\Av(\d.+)\z/
+      [1, Gem::Version.new($1)]
+    else
+      [2, title]
+    end
+  end
+
   def get_milestones(state)
-    fetch "milestones_#{state}", CACHE_TTL do
+    milestones = fetch "milestones_#{state}", CACHE_TTL do
       HTTParty.get("#{api_url}/milestones?state=#{state}", @opts).parsed_response
     end
+    milestones.sort_by { |milestone| milestone_sort_key(milestone) }.reverse
   end
 
   def fetch(key, ttl)
