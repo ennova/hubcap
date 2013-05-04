@@ -1,0 +1,15 @@
+%ul.unstyled
+  - issues.each do |issue|
+    %li
+      :ruby
+        badge_style = if item_bug_label?(issue)
+          'badge badge-warning'
+        else
+          'badge badge-info'
+        end
+
+      %a{:href => issue['html_url']}
+        %span{:class => badge_style}= issue['number']
+      = issue['title']
+      = related_issues_as_links(issue)
+      = milestone_as_link(issue)

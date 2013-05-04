@@ -1,0 +1,14 @@
+%table.table.table-hover.table-striped.table-condensed
+  - issues.each do |issue|
+    %tr{:class => class_for_issue(issue)}
+      %td
+        %a{:href => issue['html_url']}= issue['number']
+      %td
+        = issue['title']
+        = related_issues_as_links(issue)
+        = blocked_label(issue)
+        = milestone_as_link(issue)
+      %td
+        = item_assignee(issue)
+      %td
+        = item_age(issue)

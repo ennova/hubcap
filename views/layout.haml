@@ -1,0 +1,26 @@
+!!! 5
+%html
+  %title HubCap
+  %link{:href => '/bootstrap.css', :rel => 'stylesheet'}
+%body
+  :ruby
+    def active_if(path)
+      'active' if path == request.path_info
+    end
+  .page-header
+    .navbar.navbar-inverse.navbar-fixed-top
+      .navbar-inner
+        .container-fluid
+          %a.brand{:href => '/'} HubCap
+          %ul.nav
+            %li{:class => active_if('/')}
+              %a{:href => '/'} Work Board
+            %li{:class => active_if('/user-board')}
+              %a{:href => '/user-board'} User Board
+            %li{:class => active_if('/release-board')}
+              %a{:href => '/release-board'} Release Board
+          %ul.nav.pull-right
+            %li
+              %a{:href => '/refresh'} Refresh
+  .container-fluid
+    = yield

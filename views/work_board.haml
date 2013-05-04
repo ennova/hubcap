@@ -1,0 +1,18 @@
+.row-fluid
+  .span4
+    %h4 Ready
+    = partial 'issue_table', :locals => {:issues => project.ready_issues}
+
+  .span4
+    %h4 Working
+    = partial 'issue_table', :locals => {:issues => project.working_issues}
+
+    %h4 Review
+    = partial 'issue_table', :locals => {:issues => project.review_issues}
+
+  .span4
+    %h4 Pulls
+    = partial 'issue_table', :locals => {:issues => project.pull_requests}
+
+    %h4 Done
+    = partial 'issue_table', :locals => {:issues => project.done_issues}
