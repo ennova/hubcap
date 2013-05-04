@@ -3,18 +3,18 @@
     %h4
       = project.last_closed_milestone['title']
       (Last - 1)
-    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(project.second_last_closed_milestone['title'])}
+    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(project.second_last_closed_milestone['title']), :hide_milestone => true}
 
   .span3
     %h4
       = project.last_closed_milestone['title']
       (Last)
-    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(project.last_closed_milestone['title'])}
+    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(project.last_closed_milestone['title']), :hide_milestone => true}
 
   .span3
     %h4 Next
-    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone('Next')}
+    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone('Next'), :hide_milestone => true}
 
   .span3
     %h4 Next + 1
-    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone('Next+1')}
+    = partial 'issue_table', :locals => {:issues => project.issues_for_milestone('Next+1'), :hide_milestone => true}
