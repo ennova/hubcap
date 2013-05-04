@@ -4,7 +4,8 @@
       %td
         %a{:href => issue['html_url']}= issue['number']
       %td
-        %span.title= issue['title']
+        %a{:href => issue['html_url']}
+          %span.title= issue['title']
         = related_issues_as_links(issue)
         = blocked_label(issue)
         = milestone_as_link(issue)
