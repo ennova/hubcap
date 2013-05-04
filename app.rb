@@ -14,6 +14,10 @@ class App < Sinatra::Base
     username == 'admin' and password == ENV['PASSWORD']
   end
 
+  get '/stylesheet.css' do
+    sass :stylesheet
+  end
+
   get '/' do
     haml :work_board
   end
