@@ -22,6 +22,11 @@ class App < Sinatra::Base
     haml :work_board
   end
 
+  get '/release-board/notes/:milestone' do
+    @issues = project.issues_for_milestone(params[:milestone])
+    haml :release_notes
+  end
+
   get '/release-board' do
     haml :release_board
   end

@@ -1,0 +1,5 @@
+:ruby
+  issues = @issues.map do |issue|
+    "##{issue['number']} #{issue['title']}"
+  end.join("\n")
+%textarea.row-fluid~ issues
