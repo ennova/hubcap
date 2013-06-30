@@ -7,6 +7,8 @@ Dotenv.load
 
 class Project
   CACHE_TTL = 300
+  PAGE_COUNT = 3
+
   # NAME_MAPPING format: twe4ked=Odin,jasoncodes=Jason
   NAMES = Hash[ENV['NAME_MAPPING'].split(',').map { |x| x.split('=') }]
 
@@ -97,9 +99,14 @@ class Project
   end
 
   def get_issues(state, label='')
-    fetch "issues_#{state}#{label.empty? ? '' : '_' + label}", CACHE_TTL do
-      HTTParty.get("#{api_url}/issues?filter=all&labels=#{label}&state=#{state}&per_page=100", @opts).parsed_response
+    issues = fetch "issues_#{state}#{label.empty? ? '' : '_' + label}", CACHE_TTL do
+      issues ||= []
+      (1..PAGE_COUNT).each do |page|
+        issues += HTTParty.get("#{api_url}/issues?filter=all&labels=#{label}&state=#{state}&page=#{page}&per_page=100", @opts).parsed_response
+      end
+      issues
     end
+    issues
   end
 
   def get_pull_requests(state)
