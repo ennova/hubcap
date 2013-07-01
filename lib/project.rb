@@ -84,6 +84,21 @@ class Project
     "https://github.com/#{@organisation}/#{@repository}/issues/#{issue_number}"
   end
 
+  def issue_mentioned_by_pull_request
+    mapping = {}
+    pull_requests.each do |pr|
+      mentioned_issues = pr['body'].scan(/#(\d+)/).flatten
+      mentioned_issues.each do |issue|
+        begin
+          mapping[issue] = pr['number']
+        rescue
+          # It is possible that more than on PR mention the same issue
+        end
+      end
+    end
+    mapping
+  end
+
   private
 
   def all_issues

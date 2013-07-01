@@ -53,6 +53,11 @@ module ApplicationHelpers
     end
   end
 
+  def pull_request_label(issue)
+    pr_number = @project.issue_mentioned_by_pull_request[issue['number'].to_s]
+    html_span('label label-info', "PR#{pr_number}") if pr_number
+  end
+
   def class_for_issue(issue)
     if item_bug_label?(issue)
       'error'
