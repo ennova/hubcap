@@ -63,11 +63,17 @@ module ApplicationHelpers
       'error'
     elsif item_important_label?(issue)
       'warning'
+    elsif item_tech_debt_label?(issue)
+      'info'
     end
   end
 
   def item_bug_label?(issue)
     issue['labels'] && issue['labels'].collect { |l| l['name'].downcase }.join(' ').match('bug')
+  end
+
+  def item_tech_debt_label?(issue)
+    issue['labels'] && issue['labels'].collect { |l| l['name'].downcase }.join(' ').match('tech debt')
   end
 
   def item_important_label?(issue)
