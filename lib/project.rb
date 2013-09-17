@@ -141,7 +141,7 @@ class Project
 
   def get_milestones(state)
     milestones = fetch "milestones_#{state}", CACHE_TTL do
-      HTTParty.get("#{api_url}/milestones?state=#{state}", @opts).parsed_response
+      HTTParty.get("#{api_url}/milestones?state=#{state}&per_page=100", @opts).parsed_response
     end
     milestones.sort_by { |milestone| milestone_sort_key(milestone) }.reverse
   end
