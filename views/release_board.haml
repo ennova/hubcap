@@ -1,20 +1,20 @@
 .row-fluid
   .span3
     %h4
-      = project.second_last_closed_milestone['title']
-      (Last - 1)
+      %a{:href => "/release-board/notes/#{project.second_last_closed_milestone['title']}"} #{project.second_last_closed_milestone['title']} Last
     = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(project.second_last_closed_milestone['title']), :hide_milestone => true}
 
   .span3
     %h4
-      = project.last_closed_milestone['title']
-      (Last)
+      %a{:href => "/release-board/notes/#{project.last_closed_milestone['title']}"} #{project.last_closed_milestone['title']} Last
     = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(project.last_closed_milestone['title']), :hide_milestone => true}
 
   .span3
-    %h4 Next
+    %h4
+      %a{:href => '/release-board/notes/Next'} Next
     = partial 'issue_table', :locals => {:issues => project.issues_for_milestone('Next'), :hide_milestone => true}
 
   .span3
-    %h4 Next + 1
+    %h4
+      %a{:href => '/release-board/notes/Next+1'} Next+1
     = partial 'issue_table', :locals => {:issues => project.issues_for_milestone('Next+1'), :hide_milestone => true}

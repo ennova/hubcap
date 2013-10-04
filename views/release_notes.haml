@@ -1,5 +1,21 @@
 :ruby
-  issues = @issues.map do |issue|
-    "##{issue['number']} #{issue['title']}"
-  end.join("\n")
-%textarea.row-fluid~ issues
+  features = @issues.reject {|i| item_bug_label?(i) }
+  bugs = @issues - features
+
+%h2 Release Notes for Milestone #{params[:milestone]}
+
+%h3 New / Enhanced Features
+- if features.size > 0
+  %ul
+  - features.each do |issue|
+    %li [#{issue['number']}] #{issue['title']}
+- else
+  %p No new features
+
+%h3 Bugs Fixed
+- if bugs.size > 0
+  %ul
+  - bugs.each do |issue|
+    %li [#{issue['number']}] #{issue['title']}
+- else
+  %p No bugs
