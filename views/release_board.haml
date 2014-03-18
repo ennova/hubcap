@@ -3,4 +3,5 @@
     .span3
       %h4
         %a{:href => "/release-board/notes/#{milestone['title']}"}= milestone['title']
+        %small= milestone['state']
       = partial 'issue_table', :locals => {:issues => project.issues_for_milestone(milestone['title']), :hide_milestone => true}
