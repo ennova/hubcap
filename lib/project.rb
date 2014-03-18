@@ -34,12 +34,10 @@ class Project
     get_issues('closed')
   end
 
-  def open_milestones
-    get_milestones('open')
-  end
-
-  def closed_milestones
-    get_milestones('closed')
+  def milestones
+    %w[open closed].map do |state|
+      get_milestones state
+    end.flatten.sort_by { |milestone| milestone_sort_key(milestone) }
   end
 
   def pull_requests
@@ -66,12 +64,8 @@ class Project
     all_issues.find_all { |i| i['milestone'] ? i['milestone']['title'] == milestone_title : false }
   end
 
-  def last_closed_milestone
-    closed_milestones[0]
-  end
-
-  def second_last_closed_milestone
-    closed_milestones[1]
+  def milestone_with_title(title)
+    milestones.select { |milestone| milestone['title'] == title }
   end
 
   def clear
@@ -132,18 +126,23 @@ class Project
 
   def milestone_sort_key(milestone)
     title = milestone['title']
-    if title =~ /\Av(\d.+)\z/
-      [1, Gem::Version.new($1)]
+
+    case title
+    when 'Next+1'
+      [4, title]
+    when 'Next'
+      [3, title]
+    when /\Av(\d.+)\z/
+      [2, Gem::Version.new($1)]
     else
-      [2, title]
+      [1, title]
     end
   end
 
   def get_milestones(state)
-    milestones = fetch "milestones_#{state}", CACHE_TTL do
+    fetch "milestones_#{state}", CACHE_TTL do
       HTTParty.get("#{api_url}/milestones?state=#{state}&per_page=100", @opts).parsed_response
     end
-    milestones.sort_by { |milestone| milestone_sort_key(milestone) }.reverse
   end
 
   def fetch(key, ttl)
