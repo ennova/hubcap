@@ -1,5 +1,7 @@
 require 'sinatra'
 require 'sinatra/partial'
+require 'haml'
+require 'sass'
 
 require 'project'
 require 'helpers'
