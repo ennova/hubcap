@@ -53,11 +53,7 @@ class Project
   end
 
   def review_issues
-    open_issues_with_tag('3 - review')
-  end
-
-  def done_issues
-    open_issues_with_tag('4 - done')
+    open_issues_containing_tag('review')
   end
 
   def issues_for_milestone(milestone_title)
@@ -101,6 +97,10 @@ class Project
 
   def open_issues_with_tag(tag)
     open_issues.find_all { |i| i['labels'].find { |l| l['name'] == tag } }
+  end
+
+  def open_issues_containing_tag(tag)
+    open_issues.find_all { |i| i['labels'].find { |l| l['name'].match(tag) } }
   end
 
   def api_url

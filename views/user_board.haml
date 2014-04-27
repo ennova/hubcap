@@ -11,8 +11,6 @@
           %h4 Review
         %th
           %h4 Pull Request
-        %th
-          %h4 Done
       %tbody
         - Project::NAMES.each do |github_username, real_name|
           %tr
@@ -26,5 +24,3 @@
               = partial 'issues_summary', :locals => {:issues => assigned_items(project.review_issues, github_username)}
             %td
               = partial 'issues_summary', :locals => {:issues => assigned_items(project.pull_requests, github_username)}
-            %td
-              = partial 'issues_summary', :locals => {:issues => assigned_items(project.done_issues, github_username)}
