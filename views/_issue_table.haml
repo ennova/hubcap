@@ -4,6 +4,8 @@
     %tr{:class => class_for_issue(issue)}
       %td
         %a{:href => issue['html_url']}= issue['number']
+        %br
+        = item_assignee(issue)
       %td
         %a.issue-link{:href => issue['html_url']}
           %span.title= issue['title']
@@ -13,7 +15,5 @@
         = pull_request_label(issue)
         - unless hide_milestone
           = milestone_as_link(issue)
-      %td
-        = item_assignee(issue)
-      %td
-        = item_age(issue)
+        - unless hide_state
+          = state_label(issue)

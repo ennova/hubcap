@@ -21,6 +21,11 @@ module ApplicationHelpers
     end
   end
 
+  def state_label(issue)
+    style = issue['state'] == 'closed' ? 'label-success' : 'label-warning'
+    html_span("label #{style}", issue['state'])
+  end
+
   def blocked_label(issue)
     if issue['labels'] && issue['labels'].find { |l| l['name'] == 'blocked' }
        html_span('label label-inverse', 'blocked')
@@ -39,18 +44,29 @@ module ApplicationHelpers
     end
   end
 
-  def item_age(issue)
-    age_days = (Date.today - Time.parse(issue['created_at']).to_date).to_i
-    case age_days
+  def age_in_days(issue)
+    (Date.today - Time.parse(issue['created_at']).to_date).to_i
+  end
+
+  def age_style(issue)
+    case age_in_days(issue)
     when 0..10
-      html_span('badge badge-success', age_days)
+      'badge badge-success'
     when 11..20
-      html_span('badge badge-warning', age_days)
+      'badge badge-warning'
     when 20..100
-      html_span('badge badge-important', age_days)
+      'badge badge-important'
     else
-      html_span('badge', age_days)
+      'badge'
     end
+  end
+
+  def item_number(issue)
+    html_span(age_style(issue), issue['number'])
+  end
+
+  def item_age(issue)
+    html_span(age_style(issue), age_in_days(issue))
   end
 
   def pull_request_label(issue)

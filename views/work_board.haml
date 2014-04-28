@@ -1,16 +1,16 @@
 .row-fluid
   .span3
     %h4 Ready
-    = partial 'issue_table', :locals => {:issues => project.ready_issues}
+    = partial 'issue_table', :locals => {:issues => project.ready_issues, :hide_state => true}
 
   .span3
     %h4 Working
-    = partial 'issue_table', :locals => {:issues => project.working_issues}
+    = partial 'issue_table', :locals => {:issues => project.working_issues, :hide_state => true}
 
   .span3
     %h4 Review
-    = partial 'issue_table', :locals => {:issues => project.review_issues}
+    = partial 'issue_table', :locals => {:issues => project.review_issues, :hide_state => true}
 
   .span3
     %h4 Pulls
-    = partial 'issue_table', :locals => {:issues => project.pull_requests}
+    = partial 'issue_table', :locals => {:issues => project.pull_requests, :hide_state => true}
