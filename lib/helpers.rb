@@ -4,7 +4,7 @@ module ApplicationHelpers
   end
 
   def related_issues_as_links(issue)
-    related_issues = issue['body'].scan(/#(\d+)/)
+    related_issues = issue['body'].scan(/#(\d+)/).uniq
     links = ''
     if related_issues.size > 0
       related_issues.each do |issue|
