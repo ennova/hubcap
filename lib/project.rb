@@ -107,11 +107,12 @@ class Project
     "https://api.github.com/repos/#{@organisation}/#{@repository}"
   end
 
-  def get_issues(state, label='')
-    issues = fetch "issues_#{state}#{label.empty? ? '' : '_' + label}", CACHE_TTL do
+  def get_issues(state)
+    issues = fetch "issues_#{state}", CACHE_TTL do
       issues ||= []
       (1..PAGE_COUNT).each do |page|
-        issues += HTTParty.get("#{api_url}/issues?filter=all&labels=#{label}&state=#{state}&page=#{page}&per_page=100", @opts).parsed_response
+        query = {filter:'all', state:state, page:page, per_page:100}
+        issues += HTTParty.get("#{api_url}/issues", @opts.merge(query:query)).parsed_response
       end
       issues
     end
