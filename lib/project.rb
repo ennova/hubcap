@@ -7,7 +7,7 @@ Dotenv.load
 
 class Project
   CACHE_TTL = 300
-  PAGE_COUNT = 3
+  PAGE_COUNT = 5
 
   # NAME_MAPPING format: twe4ked=Odin,jasoncodes=Jason
   NAMES = Hash[ENV['NAME_MAPPING'].split(',').map { |x| x.split('=') }]
